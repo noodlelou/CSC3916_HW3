@@ -85,9 +85,9 @@ router.post('/signin', function (req, res) {
 router.get('/movies', (req, res) => {
     //const movie = await Movie.find({});
 
-    req = getJSONObjectForMovie(req);
+    //req = getJSONObjectForMovie(req);
 
-    const movie = db.collection('movies').findOne({Title: req.Title});
+    const movie = db.collection('movies').findOne({Title: req.body.Title});
 
     try{
         res.send(movie);
@@ -100,9 +100,9 @@ router.get('/movies', (req, res) => {
 
 router.post('/movies', (req, res) => {
 
-    req = getJSONObjectForMovie(req);
+    //req = getJSONObjectForMovie(req);
 
-    const movie = new Movie(req);
+    const movie = new Movie(req.body);
 
     try{
         movie.save();
