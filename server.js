@@ -95,7 +95,6 @@ router.get('/movies', (req, res) => {
         res.status(500).send(err);
     }
 
-
 });
 
 router.post('/movies', (req, res) => {
