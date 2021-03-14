@@ -82,12 +82,12 @@ router.post('/signin', function (req, res) {
     })
 });
 
-router.get('/movies', async (req, res) => {
+router.get('/movies', (req, res) => {
     //const movie = await Movie.find({});
 
     req = getJSONObjectForMovie(req);
 
-    const movie = await db.collection('movies').findOne({Title: req.Title});
+    const movie = db.collection('movies').findOne({Title: req.Title});
 
     try{
         res.send(movie);
@@ -98,14 +98,14 @@ router.get('/movies', async (req, res) => {
 
 });
 
-router.post('/movies', async (req, res) => {
+router.post('/movies', (req, res) => {
 
     req = getJSONObjectForMovie(req);
 
     const movie = new Movie(req);
 
     try{
-        await movie.save();
+        movie.save();
         res.send(movie);
     } catch(err) {
         res.status(500).send(err);
