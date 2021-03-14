@@ -13,6 +13,7 @@ var authJwtController = require('./auth_jwt');
 var jwt = require('jsonwebtoken');
 var cors = require('cors');
 var User = require('./Users');
+var Movie = require('./Movies');
 
 var app = express();
 app.use(cors());
@@ -87,7 +88,7 @@ router.post('/signin', function (req, res) {
 });
 
 router.get('/movies', async (req, res) => {
-    const movie = await User.find({});
+    const movie = await Movie.find({});
 
     try {
         res.send(movie);

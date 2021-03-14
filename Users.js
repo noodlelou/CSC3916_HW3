@@ -43,15 +43,6 @@ UserSchema.methods.comparePassword = function (password, callback) {
     })
 }
 
-// movie schema, all fields are required and actors is an array of strings
-var MovieSchema = new Schema({
-    Title: {type: String, required: true, index: {unique: true}, trim: true},
-    'Year Released': {type: Number, required: true, trim: true},
-    Genre: {type: String, required: true, trim: true},
-    Actors: [String]
-});
-
 
 //return the models to server
 module.exports = mongoose.model('User', UserSchema);
-module.exports = mongoose.model('Movie', MovieSchema);
