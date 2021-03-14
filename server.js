@@ -98,7 +98,7 @@ router.get('/movies', (req, res) => {
 
 });
 
-router.post('/movies', (req, res) => {
+router.post('/movies', async (req, res) => {
 
     req = getJSONObjectForMovie(req);
 
