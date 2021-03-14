@@ -14,6 +14,7 @@ var jwt = require('jsonwebtoken');
 var cors = require('cors');
 var User = require('./Users');
 var Movie = require('./Movies');
+const { db } = require('./Movies');
 
 var app = express();
 app.use(cors());
@@ -87,15 +88,18 @@ router.post('/signin', function (req, res) {
     })
 });
 
-router.get('/movies', async (req, res) => {
-    const movie = await Movie.find({});
+router.get('/movies', (req, res) => {
+    //const movie = await Movie.find({});
 
-    try {
-        res.send(movie);
-    } catch (err) {
-        res.status(500).send(err);
-    }
+
+    db.collection('movies').find({}).toArray((err, docs) => {
+        if (err) throw err;
+    
+
+        res.status(200).json(docs);
+    });
 });
+
 
 app.use('/', router);
 app.listen(process.env.PORT || 8080);
