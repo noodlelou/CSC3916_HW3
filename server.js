@@ -25,19 +25,13 @@ app.use(passport.initialize());
 
 var router = express.Router();
 
-function getJSONObjectForMovieRequirement(req) {
+function getJSONObjectForMovie(req) {
     var json = {
-        headers: "No headers",
-        key: process.env.UNIQUE_KEY,
         body: "No body"
     };
 
     if (req.body != null) {
         json.body = req.body;
-    }
-
-    if (req.headers != null) {
-        json.headers = req.headers;
     }
 
     return json;
@@ -91,8 +85,9 @@ router.post('/signin', function (req, res) {
 router.get('/movies', (req, res) => {
     //const movie = await Movie.find({});
 
+    req = getJSONObjectForMovie(req);
 
-    const movie = db.collection('movies').find({})
+    const movie = await db.collection('movies').findOne({Title: req.Title});
 
     try{
         res.send(movie);
@@ -101,6 +96,20 @@ router.get('/movies', (req, res) => {
     }
 
 
+});
+
+router.post('/movies', (req, res) => {
+
+    req = getJSONObjectForMovie(req);
+
+    const movie = new Movie(req);
+
+    try{
+        await movie.save();
+        res.send(movie);
+    } catch(err) {
+        res.status(500).send(err);
+    }
 });
 
 
