@@ -82,7 +82,7 @@ router.post('/signin', function (req, res) {
     })
 });
 
-router.get('/movies', (req, res) => {
+router.get('/movies', async (req, res) => {
     //const movie = await Movie.find({});
 
     req = getJSONObjectForMovie(req);
