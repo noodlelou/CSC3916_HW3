@@ -92,12 +92,15 @@ router.get('/movies', (req, res) => {
     //const movie = await Movie.find({});
 
 
-    db.collection('movies').find({}).toArray((err, docs) => {
-        if (err) throw err;
-    
+    const movie = db.collection('movies').find({})
 
-        res.status(200).json(docs);
-    });
+    try{
+        res.send(movie);
+    } catch(err) {
+        res.status(500).send(err);
+    }
+
+
 });
 
 
