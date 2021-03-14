@@ -4,6 +4,7 @@ File: Server.js
 Description: Web API scaffolding for Movie API
  */
 
+require('dotenv').config();
 var express = require('express');
 var bodyParser = require('body-parser');
 var passport = require('passport');
@@ -83,6 +84,16 @@ router.post('/signin', function (req, res) {
             }
         })
     })
+});
+
+router.get('/movies', async (req, res) => {
+    const movie = await User.find({});
+
+    try {
+        res.send(movie);
+    } catch (err) {
+        res.status(500).send(err);
+    }
 });
 
 app.use('/', router);
