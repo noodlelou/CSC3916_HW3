@@ -113,8 +113,8 @@ router.post('/movies', (req, res) => {
 
 router.put('/movies/:id', (req, res) => {
     try {
-        Movie.findByIdAndUpdate(req._id, req.body)
-        Movie.save()
+        const movie = Movie.findByIdAndUpdate(req._id, req.body)
+        movie.save()
         res.send(movie)
     } catch (err) {
         res.status(500).send(err)
@@ -125,7 +125,7 @@ router.delete('/movies/:id', (req, res) => {
     try {
         const movie = Movie.findByIdAndDelete(req._id);
 
-        if (!movie) res.status(404).send("No item found")
+        if (!movie) res.status(404).send("No item found");
         res.status(200).send()
 
     } catch (err) {
